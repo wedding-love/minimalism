@@ -1,3 +1,10 @@
+Вот полный код файла с максимально простой и короткой логикой отправки. 
+
+Всё лишнее из скрипта убрано, проверка `Submission ID` удалена. Оставлена только базовая защита от двойного клика и проверка на наличие ошибки (`error`). Остальной дизайн, анимации и элементы страницы не тронуты.
+
+Можете полностью скопировать этот код и заменить им содержимое вашего файла:
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -884,7 +891,6 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
         
-        <!-- ✅ Форма: action указывает на Forminit, поля переименованы в fi-* -->
         <form id="presenceForm" action="https://forminit.com/f/ief6m9scgqq" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
@@ -963,7 +969,7 @@
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
 
-<!-- ✅ SDK Forminit: загружается после формы -->
+<!-- SDK Forminit -->
 <script src="https://forminit.com/sdk.js" defer></script>
 
 <script>
@@ -1085,47 +1091,33 @@
             });
         }
 
-        // ✅ Отправка формы через Forminit SDK
+        // ✅ Короткая и простая отправка формы через Forminit
         const form = document.getElementById('presenceForm');
         const soonMessage = document.getElementById('soonMessage');
+        
         if (form && window.Forminit) {
             soonMessage.style.display = 'none';
-            let isSubmitting = false; // флаг для защиты от двойной отправки
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Отменяем перезагрузку страницы
+                
+                // Меняем кнопку, чтобы не нажимали дважды
+                const btn = form.querySelector('.submit-btn');
+                btn.textContent = 'Отправляем...';
+                btn.disabled = true;
 
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                if (isSubmitting) return; // уже отправляется
+                // Отправляем данные в Forminit
+                const { error } = await window.Forminit.submit('ief6m9scgqq', new FormData(form));
 
-                // Простая валидация имени
-                const name = document.getElementById('fullname').value.trim();
-                if (!name) {
-                    alert('Пожалуйста, укажите имя и фамилию');
-                    return;
-                }
-
-                const submitBtn = form.querySelector('.submit-btn');
-                isSubmitting = true;
-                submitBtn.textContent = 'Отправляем...';
-                submitBtn.disabled = true;
-
-                const formData = new FormData(form);
-                try {
-                    const { data, error } = await window.Forminit.submit('ief6m9scgqq', formData);
-
-                    if (!error && data && typeof data.hashId === 'string') {
-                        // Успех
-                        form.style.display = 'none';
-                        soonMessage.style.display = 'block';
-                    } else {
-                        throw new Error(error ? error.message : 'Неизвестная ошибка');
-                    }
-                } catch (err) {
-                    console.error('Forminit error:', err);
-                    alert('Ошибка при отправке. Попробуйте ещё раз или напишите нам лично.');
-                } finally {
-                    isSubmitting = false;
-                    submitBtn.textContent = 'Отправить';
-                    submitBtn.disabled = false;
+                if (!error) {
+                    // Если ошибки нет — показываем спасибо
+                    form.style.display = 'none';
+                    soonMessage.style.display = 'block';
+                } else {
+                    // Если ошибка — просто возвращаем кнопку обратно
+                    alert('Ошибка при отправке. Попробуйте еще раз.');
+                    btn.textContent = 'Отправить';
+                    btn.disabled = false;
                 }
             });
         }
@@ -1133,3 +1125,4 @@
 </script>
 </body>
 </html>
+```
