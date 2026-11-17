@@ -884,42 +884,42 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
         
-        <!-- ИЗМЕНЕНА ТОЛЬКО ЭТА СТРОКА: action указывает на Forminit, добавлен enctype -->
+        <!-- ✅ Форма: action указывает на Forminit, поля переименованы в fi-* -->
         <form id="presenceForm" action="https://forminit.com/f/ief6m9scgqq" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
-                <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
+                <input type="text" id="fullname" name="fi-sender-fullName" required placeholder="Петрова Анна">
             </div>
             
             <div class="form-group">
                 <label>Сможете ли вы присутствовать? *</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="attendance" value="Да, приду" required> Да, приду</label>
-                    <label><input type="radio" name="attendance" value="Нет, не смогу"> Нет, не смогу</label>
-                    <label><input type="radio" name="attendance" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
+                    <label><input type="radio" name="fi-radio-attendance" value="Да, приду" required> Да, приду</label>
+                    <label><input type="radio" name="fi-radio-attendance" value="Нет, не смогу"> Нет, не смогу</label>
+                    <label><input type="radio" name="fi-radio-attendance" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="companions">Будет ли с вами кто-то еще? (если да, укажите имена)</label>
-                <input type="text" id="companions" name="companions" placeholder="Например: Сергей, Ольга">
+                <input type="text" id="companions" name="fi-text-companions" placeholder="Например: Сергей, Ольга">
             </div>
             
             <div class="form-group">
                 <label>Предпочтения по напиткам (можно выбрать несколько)</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="drinks" value="Шампанское"> Шампанское</label>
-                    <label><input type="checkbox" name="drinks" value="Белое вино"> Белое вино</label>
-                    <label><input type="checkbox" name="drinks" value="Красное вино"> Красное вино</label>
-                    <label><input type="checkbox" name="drinks" value="Водка"> Водка</label>
-                    <label><input type="checkbox" name="drinks" value="Виски"> Виски</label>
-                    <label><input type="checkbox" name="drinks" value="Безалкогольные напитки"> Безалкогольные напитки</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Шампанское"> Шампанское</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Белое вино"> Белое вино</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Красное вино"> Красное вино</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Водка"> Водка</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Виски"> Виски</label>
+                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Безалкогольные напитки"> Безалкогольные напитки</label>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="message">Ваши пожелания или комментарии (аллергии, особенности)</label>
-                <textarea id="message" name="message" rows="2" placeholder="Напишите, если важно"></textarea>
+                <textarea id="message" name="fi-text-message" rows="2" placeholder="Напишите, если важно"></textarea>
             </div>
             
             <button type="submit" class="submit-btn">Отправить</button>
@@ -962,6 +962,9 @@
 <footer>
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
+
+<!-- ✅ SDK Forminit: загружается после формы -->
+<script src="https://forminit.com/sdk.js" defer></script>
 
 <script>
     (function() {
@@ -1082,36 +1085,45 @@
             });
         }
 
-        // Форма
+        // ✅ Отправка формы через Forminit SDK
         const form = document.getElementById('presenceForm');
         const soonMessage = document.getElementById('soonMessage');
-        if (form) {
+        if (form && window.Forminit) {
             soonMessage.style.display = 'none';
+            let isSubmitting = false; // флаг для защиты от двойной отправки
+
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
+                if (isSubmitting) return; // уже отправляется
+
+                // Простая валидация имени
                 const name = document.getElementById('fullname').value.trim();
                 if (!name) {
                     alert('Пожалуйста, укажите имя и фамилию');
                     return;
                 }
+
                 const submitBtn = form.querySelector('.submit-btn');
+                isSubmitting = true;
                 submitBtn.textContent = 'Отправляем...';
                 submitBtn.disabled = true;
+
                 const formData = new FormData(form);
                 try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
+                    const { data, error } = await window.Forminit.submit('ief6m9scgqq', formData);
+
+                    if (!error && data && typeof data.hashId === 'string') {
+                        // Успех
                         form.style.display = 'none';
                         soonMessage.style.display = 'block';
                     } else {
-                        throw new Error('Server error');
+                        throw new Error(error ? error.message : 'Неизвестная ошибка');
                     }
-                } catch (error) {
+                } catch (err) {
+                    console.error('Forminit error:', err);
                     alert('Ошибка при отправке. Попробуйте ещё раз или напишите нам лично.');
+                } finally {
+                    isSubmitting = false;
                     submitBtn.textContent = 'Отправить';
                     submitBtn.disabled = false;
                 }
