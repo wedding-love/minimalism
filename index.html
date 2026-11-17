@@ -884,7 +884,8 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
         
-        <form id="presenceForm" action="https://formspree.io/f/xzdkdjjr" method="POST">
+        <!-- ИЗМЕНЕНА ТОЛЬКО ЭТА СТРОКА: action указывает на Forminit, добавлен enctype -->
+        <form id="presenceForm" action="https://forminit.com/f/ief6m9scgqq" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
@@ -1011,7 +1012,7 @@
                 return;
             }
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (86400000)) / (3600000));
+            const hours = Math.floor((diff % 86400000) / (3600000));
             const minutes = Math.floor((diff % 3600000) / 60000);
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
