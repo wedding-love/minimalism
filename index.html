@@ -8,11 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: #ffffff;
@@ -23,9 +19,7 @@
             scroll-behavior: smooth;
         }
 
-        section {
-            width: 100%;
-        }
+        section { width: 100%; }
 
         /* Hero */
         .hero {
@@ -43,26 +37,18 @@
             background-repeat: no-repeat;
             padding-top: 80px;
         }
-
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.35);
             z-index: 1;
         }
-
-        .hero .names,
-        .hero .hero-sub {
-            position: relative;
-            z-index: 2;
+        .hero .names, .hero .hero-sub {
+            position: relative; z-index: 2;
             color: #ffffff;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
         }
-
         .names {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2.2rem, 8vw, 4.5rem);
@@ -71,7 +57,6 @@
             margin-bottom: 1rem;
             text-transform: uppercase;
         }
-
         .hero-sub {
             font-size: 0.85rem;
             font-weight: 400;
@@ -79,17 +64,14 @@
             text-transform: uppercase;
             margin-top: 0.25rem;
         }
-
         @media (max-width: 768px) {
             .hero { padding-top: 60px; }
             .names { font-size: 2.2rem; padding: 0 20px; }
             .hero-sub { font-size: 0.9rem; }
         }
-
         .scroll-down {
             position: absolute;
-            bottom: 2rem;
-            left: 50%;
+            bottom: 2rem; left: 50%;
             transform: translateX(-50%);
             cursor: pointer;
             display: flex;
@@ -98,45 +80,29 @@
             gap: 0.5rem;
             z-index: 10;
         }
-
         .scroll-down span {
-            font-size: 0.7rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.7rem; font-weight: 400;
+            text-transform: uppercase; letter-spacing: 2px;
             color: #ffffff;
         }
-
-        .arrow-icon {
-            width: 30px;
-            height: 30px;
-            stroke: #ffffff;
-            stroke-width: 1.6;
-            fill: none;
-        }
-
+        .arrow-icon { width: 30px; height: 30px; stroke: #ffffff; stroke-width: 1.6; fill: none; }
         @keyframes bounceSoft {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(8px); }
         }
-        .bounce-animation {
-            animation: bounceSoft 2s infinite ease-in-out;
-        }
+        .bounce-animation { animation: bounceSoft 2s infinite ease-in-out; }
 
         /* Общие */
         .small-divider {
-            width: 60px;
-            height: 1px;
+            width: 60px; height: 1px;
             background: #cccccc;
             margin: 1rem auto 1.2rem;
             position: relative;
         }
-        .small-divider::before,
-        .small-divider::after {
+        .small-divider::before, .small-divider::after {
             content: '';
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             background: #cccccc;
             border-radius: 50%;
             top: -2.5px;
@@ -145,34 +111,18 @@
         .small-divider::after { right: -10px; }
 
         /* Гости */
-        .guests-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .guest-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
+        .guests-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
+        .guest-content { max-width: 900px; margin: 0 auto; text-align: center; }
         .greeting-title {
             font-size: clamp(2rem, 6vw, 3.2rem);
-            font-weight: 500;
-            color: #111111;
-            letter-spacing: -0.01em;
-            margin-bottom: 1rem;
+            font-weight: 500; color: #111111;
+            letter-spacing: -0.01em; margin-bottom: 1rem;
         }
-
         .greeting-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #111111;
-            max-width: 680px;
+            font-size: 1rem; line-height: 1.7;
+            color: #111111; max-width: 680px;
             margin: 0 auto 2rem auto;
         }
-
         .calendar-wrapper {
             background: #ffffff;
             border: 1px solid #dddddd;
@@ -180,34 +130,21 @@
             padding: 1.8rem 1.2rem 2rem;
             margin-top: 1rem;
         }
-
-        .month-year {
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #111111;
-        }
-
+        .month-year { font-size: 1.8rem; font-weight: 500; color: #111111; }
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 8px; margin-bottom: 14px;
             text-align: center;
-            font-weight: 500;
-            font-size: 0.8rem;
-            color: #111111;
-            background: #fafafa;
-            padding: 0.6rem 0;
-            border-radius: 40px;
+            font-weight: 500; font-size: 0.8rem;
+            color: #111111; background: #fafafa;
+            padding: 0.6rem 0; border-radius: 40px;
         }
-
         .calendar-days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            text-align: center;
+            gap: 8px; text-align: center;
         }
-
         .calendar-day {
             aspect-ratio: 1 / 1;
             display: flex;
@@ -219,20 +156,10 @@
             background: #ffffff;
             border-radius: 50%;
         }
-
-        .calendar-day.empty {
-            background: transparent;
-            color: #dddddd;
-        }
-
-        .heart-svg {
-            width: 42px;
-            height: 42px;
-        }
+        .calendar-day.empty { background: transparent; color: #dddddd; }
+        .heart-svg { width: 42px; height: 42px; }
         .heart-svg svg { width: 100%; height: 100%; }
-        @media (max-width: 640px) {
-            .heart-svg { width: 36px; height: 36px; }
-        }
+        @media (max-width: 640px) { .heart-svg { width: 36px; height: 36px; } }
         @media (max-width: 480px) {
             .heart-svg { width: 32px; height: 32px; }
             .weekdays, .calendar-days { gap: 4px; }
@@ -240,10 +167,7 @@
         }
 
         /* Счётчик */
-        .countdown-wrapper {
-            margin-top: 2rem;
-            text-align: center;
-        }
+        .countdown-wrapper { margin-top: 2rem; text-align: center; }
         .countdown-title {
             font-size: 1rem;
             letter-spacing: 2px;
@@ -263,10 +187,8 @@
             min-width: 80px;
         }
         .countdown-item span:first-child {
-            font-size: 1.8rem;
-            font-weight: 600;
-            display: block;
-            line-height: 1.2;
+            font-size: 1.8rem; font-weight: 600;
+            display: block; line-height: 1.2;
         }
         .countdown-item span:last-child {
             font-size: 0.7rem;
@@ -275,11 +197,7 @@
         }
 
         /* Локация */
-        .location-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        .location-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .location-container { max-width: 900px; margin: 0 auto; text-align: center; }
         .location-card {
             background: #ffffff;
@@ -292,27 +210,15 @@
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
         }
-        .location-card h3 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-        .location-address {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 1rem 0;
-        }
+        .location-card h3 { font-size: 1.8rem; font-weight: 500; margin-bottom: 1rem; }
+        .location-address { font-size: 1.1rem; line-height: 1.6; margin: 1rem 0; }
         .location-image {
-            width: 100%;
-            border-radius: 20px;
-            margin: 1rem 0;
-            overflow: hidden;
+            width: 100%; border-radius: 20px;
+            margin: 1rem 0; overflow: hidden;
         }
         .location-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            max-height: 300px;
+            width: 100%; height: auto;
+            display: block; max-height: 300px;
             object-fit: cover;
             transition: transform 0.3s;
         }
@@ -336,18 +242,10 @@
             color: #ffffff;
             transform: translateY(-2px);
         }
-        .map-container {
-            margin-top: 1.5rem;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+        .map-container { margin-top: 1.5rem; border-radius: 20px; overflow: hidden; }
 
-        /* Тайминг без иконок */
-        .timeline-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        /* Тайминг */
+        .timeline-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .timeline-title {
             text-align: center;
             font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -355,11 +253,8 @@
             margin-bottom: 3rem;
         }
         .timeline {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
+            max-width: 600px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 0;
         }
         .timeline-item {
             display: flex;
@@ -368,43 +263,19 @@
             padding: 1rem 0;
             border-bottom: 1px solid #eeeeee;
         }
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-        .timeline-time {
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            width: 100px;
-        }
-        .timeline-event {
-            font-size: 1.1rem;
-            color: #444;
-            text-align: right;
-            flex: 1;
-        }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-time { font-size: 1.4rem; font-weight: 600; letter-spacing: 0.02em; width: 100px; }
+        .timeline-event { font-size: 1.1rem; color: #444; text-align: right; flex: 1; }
         @media (max-width: 640px) {
             .timeline-item { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
             .timeline-time { width: auto; }
             .timeline-event { text-align: left; }
         }
 
-        /* Фотогалерея-слайдер */
-        .gallery-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
-        .gallery-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .gallery-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
+        /* Фотогалерея */
+        .gallery-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
+        .gallery-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .gallery-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
         .slider-container {
             position: relative;
             max-width: 700px;
@@ -413,17 +284,10 @@
             border-radius: 28px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
-        .slider-track {
-            display: flex;
-            transition: transform 0.4s ease;
-        }
-        .slide {
-            flex: 0 0 100%;
-            text-align: center;
-        }
+        .slider-track { display: flex; transition: transform 0.4s ease; }
+        .slide { flex: 0 0 100%; text-align: center; }
         .slide img {
-            width: 100%;
-            max-height: 500px;
+            width: 100%; max-height: 500px;
             object-fit: cover;
             border-radius: 24px;
             display: block;
@@ -435,8 +299,7 @@
             background: rgba(0,0,0,0.5);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.5rem;
@@ -446,136 +309,115 @@
             transition: 0.2s;
             z-index: 10;
         }
-        .slider-btn:hover {
-            background: #000000;
-        }
+        .slider-btn:hover { background: #000000; }
         .btn-left { left: 10px; }
         .btn-right { right: 10px; }
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 1rem;
-        }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; }
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background: #cccccc;
             border-radius: 50%;
             cursor: pointer;
             transition: 0.2s;
         }
-        .dot.active {
-            background: #111111;
-            transform: scale(1.2);
-        }
+        .dot.active { background: #111111; transform: scale(1.2); }
 
-        /* Дресс-код — пастельные тона */
-        .dresscode-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        /* Дресс-код */
+        .dresscode-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .dresscode-container { max-width: 1000px; margin: 0 auto; text-align: center; }
-        .dresscode-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-        .dresscode-description {
-            font-size: 1rem;
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
-        }
+        .dresscode-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
+        .dresscode-description { font-size: 1rem; max-width: 700px; margin: 0 auto 1.5rem; }
         .palette {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0 2rem;
-            flex-wrap: wrap;
+            display: flex; justify-content: center;
+            gap: 2rem; margin: 2rem 0; flex-wrap: wrap;
         }
         .color-swatch { text-align: center; width: 100px; }
         .color-square {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             margin: 0 auto;
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: transform 0.2s;
         }
         .color-swatch:hover .color-square { transform: scale(1.05); }
-        .color-swatch span {
-            display: block;
-            margin-top: 0.6rem;
-            font-size: 0.9rem;
-        }
+        .color-swatch span { display: block; margin-top: 0.6rem; font-size: 0.9rem; }
         .mint { background: #c7e9d0; }
         .peach { background: #ffdab9; }
         .lavender-light { background: #e0d0ff; }
 
         /* Пожелания */
-        .wishes-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        .wishes-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .wishes-content { max-width: 800px; margin: 0 auto; text-align: center; }
-        .wishes-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-        .wishes-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-top: 1.5rem;
-        }
+        .wishes-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
+        .wishes-text { font-size: 1.1rem; line-height: 1.7; margin-top: 1.5rem; }
 
-        /* Как добраться — без иконок */
-        .transport-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        /* Как добраться */
+        .transport-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .transport-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .transport-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
+        .transport-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
         .transport-text {
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 1rem; line-height: 1.7;
             text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 600px; margin: 0 auto;
         }
         .transport-text p { margin-bottom: 0.8rem; }
 
-        /* Форма присутствия — встроенная Tally */
-        .presence-block {
-            background: #ffffff;
-            padding: 4rem 1.5rem;
-            border-bottom: 1px solid #eeeeee;
-        }
+        /* Форма присутствия */
+        .presence-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .presence-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .presence-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-        .presence-sub {
+        .presence-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
+        .presence-sub { font-size: 1rem; margin-bottom: 1.5rem; }
+
+        .form-group { text-align: left; margin-bottom: 1.8rem; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 1rem; }
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            font-family: inherit;
             font-size: 1rem;
-            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            background: #fff;
         }
-        .tally-embed {
-            width: 100%;
-            margin: 0 auto;
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: #111;
         }
-        .tally-embed iframe {
-            width: 100%;
+        .radio-group, .checkbox-group {
+            display: flex; flex-direction: column;
+            gap: 0.8rem; align-items: flex-start;
+        }
+        .radio-group label, .checkbox-group label {
+            display: inline-flex; align-items: center;
+            gap: 0.5rem; font-weight: normal; margin-bottom: 0;
+        }
+        .submit-btn {
+            background: #111;
+            color: #fff;
             border: none;
-            display: block;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 1rem;
+            border-radius: 40px;
+        }
+        .submit-btn:hover { background: #333; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .soon-message {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: none;
+        }
+        .error-message {
+            margin-top: 1rem;
+            color: #c0392b;
+            font-size: 0.95rem;
+            display: none;
         }
 
         /* Контакты */
@@ -594,15 +436,12 @@
             margin-bottom: 0.5rem;
         }
         .young-couple-text, .contacts-text {
-            font-size: 1.05rem;
-            line-height: 1.6;
+            font-size: 1.05rem; line-height: 1.6;
             margin-bottom: 1.2rem;
         }
         .couple-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            display: flex; justify-content: center;
+            gap: 1.5rem; flex-wrap: wrap;
             margin-bottom: 1.8rem;
         }
         .contact-btn {
@@ -631,16 +470,12 @@
             margin-bottom: 8px;
         }
         .btn-name {
-            font-size: 1.3rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.3rem; font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
         }
         .btn-phone { font-size: 0.85rem; margin-top: 2px; }
         .tg-icon {
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             display: inline-block;
             background: currentColor;
             mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.66-.35-1.02.22-1.61.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.13-.05-.18-.06-.05-.16-.03-.23-.01-.1.02-1.7 1.08-4.79 3.17-.45.31-.86.46-1.23.45-.4-.01-1.18-.23-1.76-.42-.7-.23-1.26-.35-1.21-.74.03-.2.3-.41.84-.63 3.28-1.43 5.47-2.37 6.56-2.83 3.12-1.31 3.77-1.54 4.19-1.55.09 0 .3.02.44.13.11.09.14.21.15.33-.01.06 0 .18-.01.3z'/%3E%3C/svg%3E") no-repeat center;
@@ -661,16 +496,12 @@
             border-top: 1px solid #eeeeee;
         }
 
-        /* Анимации */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -737,34 +568,17 @@
     </div>
 </section>
 
-<!-- Тайминг без иконок -->
 <section class="timeline-block fade-up">
     <h2 class="timeline-title">ТАЙМИНГ</h2>
     <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-time">14:30</div>
-            <div class="timeline-event">Встреча гостей</div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-time">15:30</div>
-            <div class="timeline-event">Торжественная церемония</div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-time">16:30</div>
-            <div class="timeline-event">Фуршет и фотосессия</div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-time">18:00</div>
-            <div class="timeline-event">Свадебный ужин, танцы</div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-time">22:30</div>
-            <div class="timeline-event">Завершение вечера</div>
-        </div>
+        <div class="timeline-item"><div class="timeline-time">14:30</div><div class="timeline-event">Встреча гостей</div></div>
+        <div class="timeline-item"><div class="timeline-time">15:30</div><div class="timeline-event">Торжественная церемония</div></div>
+        <div class="timeline-item"><div class="timeline-time">16:30</div><div class="timeline-event">Фуршет и фотосессия</div></div>
+        <div class="timeline-item"><div class="timeline-time">18:00</div><div class="timeline-event">Свадебный ужин, танцы</div></div>
+        <div class="timeline-item"><div class="timeline-time">22:30</div><div class="timeline-event">Завершение вечера</div></div>
     </div>
 </section>
 
-<!-- Фотогалерея-слайдер -->
 <section class="gallery-block fade-up">
     <div class="gallery-container">
         <h2 class="gallery-title">ФОТОГАЛЕРЕЯ</h2>
@@ -786,7 +600,6 @@
     </div>
 </section>
 
-<!-- Дресс-код пастельный -->
 <section class="dresscode-block fade-up">
     <div class="dresscode-container">
         <h2 class="dresscode-title">ДРЕСС-КОД</h2>
@@ -818,7 +631,6 @@
     </div>
 </section>
 
-<!-- Как добраться без иконок -->
 <section class="transport-block fade-up">
     <div class="transport-container">
         <h2 class="transport-title">КАК ДОБРАТЬСЯ</h2>
@@ -831,29 +643,58 @@
     </div>
 </section>
 
-<!-- ✅ ПРИСУТСТВИЕ: встроенная форма Tally -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (все вопросы восстановлены, отправка в Tally через /api/submit) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
-        <div class="tally-embed">
-            <iframe
-                data-tally-src="https://tally.so/embed/ArBpNB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                loading="lazy"
-                width="100%"
-                height="500"
-                frameborder="0"
-                marginheight="0"
-                marginwidth="0"
-                title="Форма присутствия на свадьбе">
-            </iframe>
-        </div>
+        <form id="presenceForm">
+            <div class="form-group">
+                <label for="fullname">Фамилия и имя *</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
+            </div>
+
+            <div class="form-group">
+                <label>Сможете ли вы присутствовать? *</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="attendance" value="Да, приду" required> Да, приду</label>
+                    <label><input type="radio" name="attendance" value="Нет, не смогу"> Нет, не смогу</label>
+                    <label><input type="radio" name="attendance" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="companions">Будет ли с вами кто-то еще? (если да, укажите имена)</label>
+                <input type="text" id="companions" name="companions" placeholder="Например: Сергей, Ольга">
+            </div>
+
+            <div class="form-group">
+                <label>Предпочтения по напиткам (можно выбрать несколько)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="drinks" value="Шампанское"> Шампанское</label>
+                    <label><input type="checkbox" name="drinks" value="Белое вино"> Белое вино</label>
+                    <label><input type="checkbox" name="drinks" value="Красное вино"> Красное вино</label>
+                    <label><input type="checkbox" name="drinks" value="Водка"> Водка</label>
+                    <label><input type="checkbox" name="drinks" value="Виски"> Виски</label>
+                    <label><input type="checkbox" name="drinks" value="Безалкогольные напитки"> Безалкогольные напитки</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Ваши пожелания или комментарии (аллергии, особенности)</label>
+                <textarea id="message" name="message" rows="2" placeholder="Напишите, если важно"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
+        </form>
+
+        <div class="soon-message" id="soonMessage">Спасибо! Мы получили ваши ответы. До скорой встречи!</div>
+        <div class="error-message" id="errorMessage">Произошла ошибка при отправке. Попробуйте ещё раз.</div>
     </div>
 </section>
 
-<!-- Контакты -->
 <section class="contacts-block fade-up">
     <div class="contacts-container">
         <h2 class="contacts-title">КОНТАКТЫ</h2>
@@ -910,7 +751,6 @@
                 dayDiv.className = 'calendar-day';
                 if (cell.empty) {
                     dayDiv.classList.add('empty');
-                    dayDiv.textContent = '';
                 } else if (cell.day === specialDay) {
                     dayDiv.innerHTML = `<div class="heart-svg">
                         <svg viewBox="0 0 100 100">
@@ -936,12 +776,9 @@
                 document.getElementById('minutes').textContent = '0';
                 return;
             }
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % 86400000) / (3600000));
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('days').textContent = Math.floor(diff / 86400000);
+            document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000);
+            document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000);
         }
         updateCountdown();
         setInterval(updateCountdown, 60000);
@@ -974,52 +811,78 @@
         if (slides.length && track && prevBtn && nextBtn) {
             let currentIndex = 0;
             const slideCount = slides.length;
-
             function updateSlider() {
                 track.style.transform = `translateX(-${currentIndex * 100}%)`;
                 document.querySelectorAll('.dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIndex);
                 });
             }
-
             function createDots() {
                 dotsContainer.innerHTML = '';
                 for (let i = 0; i < slideCount; i++) {
                     const dot = document.createElement('div');
                     dot.classList.add('dot');
                     if (i === currentIndex) dot.classList.add('active');
-                    dot.addEventListener('click', () => {
-                        currentIndex = i;
-                        updateSlider();
-                    });
+                    dot.addEventListener('click', () => { currentIndex = i; updateSlider(); });
                     dotsContainer.appendChild(dot);
                 }
             }
-
             createDots();
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-                updateSlider();
-            });
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % slideCount;
-                updateSlider();
+            prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slideCount) % slideCount; updateSlider(); });
+            nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
+        }
+
+        // ===== ОТПРАВКА ФОРМЫ В TALLY ЧЕРЕЗ /api/submit =====
+        const form = document.getElementById('presenceForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const soonMessage = document.getElementById('soonMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const drinks = Array.from(form.querySelectorAll('input[name="drinks"]:checked'))
+                    .map(cb => cb.value);
+
+                const payload = {
+                    fullname: (formData.get('fullname') || '').trim(),
+                    attendance: formData.get('attendance') || '',
+                    companions: (formData.get('companions') || '').trim(),
+                    drinks: drinks,
+                    message: (formData.get('message') || '').trim(),
+                };
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Отправляем...';
+                errorMessage.style.display = 'none';
+                soonMessage.style.display = 'none';
+
+                try {
+                    const response = await fetch('/api/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (!response.ok) {
+                        const errData = await response.json().catch(() => ({}));
+                        throw new Error(errData.error || `Ошибка: ${response.status}`);
+                    }
+
+                    form.style.display = 'none';
+                    soonMessage.style.display = 'block';
+                } catch (err) {
+                    console.error('Ошибка отправки:', err);
+                    errorMessage.textContent = err.message || 'Не удалось отправить форму. Попробуйте позже.';
+                    errorMessage.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Отправить';
+                }
             });
         }
     })();
-</script>
-
-<!-- ✅ Tally: скрипт для автоматической подгрузки встроенной формы -->
-<script src="https://tally.so/widgets/embed.js"></script>
-<script>
-    // Запускаем загрузку всех встроенных форм Tally на странице
-    if (typeof Tally !== 'undefined') {
-        Tally.loadEmbeds();
-    } else {
-        window.addEventListener('load', function () {
-            if (typeof Tally !== 'undefined') Tally.loadEmbeds();
-        });
-    }
 </script>
 </body>
 </html>
