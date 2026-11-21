@@ -552,7 +552,7 @@
         }
         .transport-text p { margin-bottom: 0.8rem; }
 
-        /* Форма */
+        /* Форма присутствия — встроенная Tally */
         .presence-block {
             background: #ffffff;
             padding: 4rem 1.5rem;
@@ -566,16 +566,16 @@
         }
         .presence-sub {
             font-size: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
-        .tally-wrapper {
+        .tally-embed {
             width: 100%;
-            min-height: 500px;
+            margin: 0 auto;
         }
-        .tally-wrapper iframe {
+        .tally-embed iframe {
+            width: 100%;
             border: none;
-            width: 100%;
-            min-height: 500px;
+            display: block;
         }
 
         /* Контакты */
@@ -831,14 +831,14 @@
     </div>
 </section>
 
-<!-- Форма присутствия (Tally) -->
+<!-- ✅ ПРИСУТСТВИЕ: встроенная форма Tally -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
-        <div class="tally-wrapper">
+        <div class="tally-embed">
             <iframe
                 data-tally-src="https://tally.so/embed/ArBpNB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                 loading="lazy"
@@ -890,7 +890,7 @@
 
 <script>
     (function() {
-        // Календарь
+        // ===== Календарь =====
         const year = 2026, month = 8, specialDay = 13;
         const firstDay = new Date(year, month, 1);
         let firstWeekday = firstDay.getDay();
@@ -925,7 +925,7 @@
             });
         }
 
-        // Счётчик
+        // ===== Счётчик =====
         function updateCountdown() {
             const target = new Date(2026, 8, 13, 14, 30, 0);
             const now = new Date();
@@ -946,14 +946,14 @@
         updateCountdown();
         setInterval(updateCountdown, 60000);
 
-        // Скролл
+        // ===== Скролл =====
         const scrollArrow = document.getElementById('scrollArrow');
         const guestsBlock = document.getElementById('guests-section');
         if (scrollArrow && guestsBlock) {
             scrollArrow.addEventListener('click', () => guestsBlock.scrollIntoView({ behavior: 'smooth', block: 'start' }));
         }
 
-        // Анимация
+        // ===== Анимация =====
         const animated = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -965,7 +965,7 @@
         }, { threshold: 0.15 });
         animated.forEach(el => observer.observe(el));
 
-        // Слайдер для фотогалереи
+        // ===== Слайдер =====
         const track = document.getElementById('sliderTrack');
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevSlide');
@@ -1009,13 +1009,13 @@
     })();
 </script>
 
-<!-- ✅ Tally: скрипт для автоматической подгрузки форм на странице -->
+<!-- ✅ Tally: скрипт для автоматической подгрузки встроенной формы -->
 <script src="https://tally.so/widgets/embed.js"></script>
 <script>
+    // Запускаем загрузку всех встроенных форм Tally на странице
     if (typeof Tally !== 'undefined') {
         Tally.loadEmbeds();
     } else {
-        // На случай, если скрипт ещё не успел загрузиться
         window.addEventListener('load', function () {
             if (typeof Tally !== 'undefined') Tally.loadEmbeds();
         });
