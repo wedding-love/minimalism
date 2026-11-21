@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -647,7 +648,7 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip с русскими колонками) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
@@ -657,40 +658,51 @@
         <!-- Pageclip Form -->
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers" class="pageclip-form" method="post" id="presenceForm">
             
+            <!-- Настройки для Email-уведомления -->
+            <input type="hidden" name="_subject" value="Новая анкета от {{ fullname }}">
+
+            <!-- 1. ИМЯ (Идет первым, поэтому в таблице и письме будет первой колонкой) -->
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
-                <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
+                <!-- Используем русское имя для красивой колонки в таблице -->
+                <input type="text" id="fullname" name="Гость" required placeholder="Петрова Анна">
             </div>
 
+            <!-- 2. ПРИСУТСТВИЕ -->
             <div class="form-group">
                 <label>Сможете ли вы присутствовать? *</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="attendance" value="Да, приду" required> Да, приду</label>
-                    <label><input type="radio" name="attendance" value="Нет, не смогу"> Нет, не смогу</label>
-                    <label><input type="radio" name="attendance" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
+                    <!-- Используем русское имя для колонки -->
+                    <label><input type="radio" name="Присутствие" value="Да, приду" required> Да, приду</label>
+                    <label><input type="radio" name="Присутствие" value="Нет, не смогу"> Нет, не смогу</label>
+                    <label><input type="radio" name="Присутствие" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
                 </div>
             </div>
 
+            <!-- 3. КОМПАНИЯ -->
             <div class="form-group">
-                <label for="companions">Будет ли с вами кто-то еще? (если да, укажите имена)</label>
-                <input type="text" id="companions" name="companions" placeholder="Например: Сергей, Ольга">
+                <label for="companions">Будет ли с вами кто-то еще?</label>
+                <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
+            <!-- 4. НАПИТКИ -->
             <div class="form-group">
-                <label>Предпочтения по напиткам (можно выбрать несколько)</label>
+                <label>Предпочтения по напиткам</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="drinks" value="Шампанское"> Шампанское</label>
-                    <label><input type="checkbox" name="drinks" value="Белое вино"> Белое вино</label>
-                    <label><input type="checkbox" name="drinks" value="Красное вино"> Красное вино</label>
-                    <label><input type="checkbox" name="drinks" value="Водка"> Водка</label>
-                    <label><input type="checkbox" name="drinks" value="Виски"> Виски</label>
-                    <label><input type="checkbox" name="drinks" value="Безалкогольные напитки"> Безалкогольные напитки</label>
+                    <!-- Все чекбоксы имеют одно имя "Напитки", чтобы попасть в одну ячейку таблицы -->
+                    <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
+                    <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
+                    <label><input type="checkbox" name="Напитки" value="Красное вино"> Красное вино</label>
+                    <label><input type="checkbox" name="Напитки" value="Водка"> Водка</label>
+                    <label><input type="checkbox" name="Напитки" value="Виски"> Виски</label>
+                    <label><input type="checkbox" name="Напитки" value="Безалкогольные"> Безалкогольные напитки</label>
                 </div>
             </div>
 
+            <!-- 5. ПОЖЕЛАНИЯ -->
             <div class="form-group">
-                <label for="message">Ваши пожелания или комментарии (аллергии, особенности)</label>
-                <textarea id="message" name="message" rows="2" placeholder="Напишите, если важно"></textarea>
+                <label for="message">Ваши пожелания или комментарии</label>
+                <textarea id="message" name="Пожелания" rows="2" placeholder="Напишите, если важно"></textarea>
             </div>
 
             <button type="submit" class="submit-btn pageclip-form__submit" id="submitBtn">
@@ -844,7 +856,6 @@
         }
 
         // ===== Обработка успеха отправки Pageclip =====
-        // Pageclip сам обрабатывает отправку, но мы хотим скрыть форму и показать сообщение
         const form = document.getElementById('presenceForm');
         if (form) {
             form.addEventListener('pageclip:success', function() {
@@ -860,3 +871,4 @@
 </script>
 </body>
 </html>
+
