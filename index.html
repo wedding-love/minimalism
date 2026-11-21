@@ -371,7 +371,6 @@
         .form-group { text-align: left; margin-bottom: 1.8rem; }
         .form-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 1rem; }
         .form-group input[type="text"],
-        .form-group input[type="email"],
         .form-group input[type="tel"],
         .form-group textarea,
         .form-group select {
@@ -644,7 +643,7 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (отправка через SplitForms) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (SplitForms: данные в таблице + email вам) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
@@ -655,8 +654,8 @@
             <!-- 🔑 Ключ доступа SplitForms -->
             <input type="hidden" name="access_key" value="fe80e33a0f43423fb58de3ab1846fdaf">
             
-            <!-- Настройки email-уведомления -->
-            <input type="hidden" name="subject" value="Новый ответ от {{ fullname }} - Свадебная анкета">
+            <!-- Настройки email-уведомления ДЛЯ ВАС -->
+            <input type="hidden" name="subject" value="Новая анкета от {{ fullname }}">
             <input type="hidden" name="from_name" value="Свадьба Дмитрия и Екатерины">
             
             <!-- Honeypot для защиты от спама -->
@@ -665,11 +664,6 @@
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Ваш email *</label>
-                <input type="email" id="email" name="email" required placeholder="example@mail.com">
             </div>
 
             <div class="form-group">
