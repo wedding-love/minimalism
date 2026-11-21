@@ -564,64 +564,18 @@
             font-weight: 500;
             margin-bottom: 1rem;
         }
-        .form-group {
-            text-align: left;
-            margin-bottom: 1.8rem;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+        .presence-sub {
             font-size: 1rem;
+            margin-bottom: 2rem;
         }
-        .form-group input[type="text"],
-        .form-group input[type="tel"],
-        .form-group textarea,
-        .form-group select {
+        .tally-wrapper {
             width: 100%;
-            padding: 0.8rem;
-            font-family: inherit;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 16px;
-            background: #fff;
+            min-height: 500px;
         }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #111;
-        }
-        .radio-group, .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            align-items: flex-start;
-        }
-        .radio-group label, .checkbox-group label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: normal;
-            margin-bottom: 0;
-        }
-        .submit-btn {
-            background: #111;
-            color: #fff;
+        .tally-wrapper iframe {
             border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
-            font-family: inherit;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 1rem;
-            border-radius: 40px;
-        }
-        .submit-btn:hover { background: #333; }
-        .soon-message {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            font-weight: 500;
-            display: none;
+            width: 100%;
+            min-height: 500px;
         }
 
         /* Контакты */
@@ -877,53 +831,25 @@
     </div>
 </section>
 
-<!-- Форма присутствия -->
-<section class="presence-block fade-up">
+<!-- Форма присутствия (Tally) -->
+<section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
-        
-        <form id="presenceForm">
-            <div class="form-group">
-                <label for="fullname">Фамилия и имя *</label>
-                <input type="text" id="fullname" name="fi-sender-fullName" required placeholder="Петрова Анна">
-            </div>
-            
-            <div class="form-group">
-                <label>Сможете ли вы присутствовать? *</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="fi-radio-attendance" value="Да, приду" required> Да, приду</label>
-                    <label><input type="radio" name="fi-radio-attendance" value="Нет, не смогу"> Нет, не смогу</label>
-                    <label><input type="radio" name="fi-radio-attendance" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="companions">Будет ли с вами кто-то еще? (если да, укажите имена)</label>
-                <input type="text" id="companions" name="fi-text-companions" placeholder="Например: Сергей, Ольга">
-            </div>
-            
-            <div class="form-group">
-                <label>Предпочтения по напиткам (можно выбрать несколько)</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Шампанское"> Шампанское</label>
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Белое вино"> Белое вино</label>
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Красное вино"> Красное вино</label>
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Водка"> Водка</label>
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Виски"> Виски</label>
-                    <label><input type="checkbox" name="fi-checkbox-drinks[]" value="Безалкогольные напитки"> Безалкогольные напитки</label>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="message">Ваши пожелания или комментарии (аллергии, особенности)</label>
-                <textarea id="message" name="fi-text-message" rows="2" placeholder="Напишите, если важно"></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">Отправить</button>
-        </form>
-        <div class="soon-message" id="soonMessage">Спасибо! Мы получили ваши ответы. До скорой встречи!</div>
+        <div class="tally-wrapper">
+            <iframe
+                data-tally-src="https://tally.so/embed/ArBpNB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy"
+                width="100%"
+                height="500"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                title="Форма присутствия на свадьбе">
+            </iframe>
+        </div>
     </div>
 </section>
 
@@ -961,9 +887,6 @@
 <footer>
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
-
-<!-- ✅ Подключаем SDK Forminit по правильному пути -->
-<script src="https://forminit.com/sdk/v1/forminit.js"></script>
 
 <script>
     (function() {
@@ -1083,47 +1006,20 @@
                 updateSlider();
             });
         }
-
-        // ✅ Правильная инициализация и отправка через Forminit SDK
-        const form = document.getElementById('presenceForm');
-        const soonMessage = document.getElementById('soonMessage');
-
-        if (form && typeof Forminit !== 'undefined') {
-            const forminit = new Forminit(); // Создаём экземпляр SDK
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Отменяем стандартный переход
-
-                const btn = form.querySelector('.submit-btn');
-                btn.textContent = 'Отправляем...';
-                btn.disabled = true;
-
-                try {
-                    // Вызываем submit у экземпляра forminit
-                    const { error } = await forminit.submit('ief6m9scgqq', new FormData(form));
-
-                    if (!error) {
-                        form.style.display = 'none';
-                        soonMessage.style.display = 'block';
-                    } else {
-                        alert('Ошибка при отправке. Попробуйте еще раз.');
-                        btn.textContent = 'Отправить';
-                        btn.disabled = false;
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert('Произошла непредвиденная ошибка. Попробуйте позже.');
-                    btn.textContent = 'Отправить';
-                    btn.disabled = false;
-                }
-            });
-        } else if (!form) {
-            console.warn('Форма не найдена');
-        } else {
-            console.warn('Forminit SDK не загружен');
-        }
     })();
+</script>
+
+<!-- ✅ Tally: скрипт для автоматической подгрузки форм на странице -->
+<script src="https://tally.so/widgets/embed.js"></script>
+<script>
+    if (typeof Tally !== 'undefined') {
+        Tally.loadEmbeds();
+    } else {
+        // На случай, если скрипт ещё не успел загрузиться
+        window.addEventListener('load', function () {
+            if (typeof Tally !== 'undefined') Tally.loadEmbeds();
+        });
+    }
 </script>
 </body>
 </html>
-
