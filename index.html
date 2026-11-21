@@ -643,14 +643,22 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (все вопросы восстановлены, отправка в Tally через /api/submit) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (все вопросы восстановлены, отправка через Web3Forms) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
-        <form id="presenceForm">
+        <form id="presenceForm" action="https://api.web3forms.com/submit" method="POST">
+            <!-- 🔑 Ключ доступа Web3Forms -->
+            <input type="hidden" name="access_key" value="7ac9d039-70da-4561-b191-d944fdf49aa7">
+            <!-- Настройки письма -->
+            <input type="hidden" name="subject" value="Новый ответ на свадебную анкету">
+            <input type="hidden" name="from_name" value="Свадебный сайт Дмитрия и Екатерины">
+            <!-- Honeypot для защиты от спама (не показывать пользователю) -->
+            <input type="checkbox" name="botcheck" style="display:none;">
+
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <input type="text" id="fullname" name="fullname" required placeholder="Петрова Анна">
@@ -832,7 +840,7 @@
             nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
         }
 
-        // ===== ОТПРАВКА ФОРМЫ В TALLY ЧЕРЕЗ /api/submit =====
+        // ===== ОТПРАВКА ФОРМЫ ЧЕРЕЗ WEB3FORMS =====
         const form = document.getElementById('presenceForm');
         const submitBtn = document.getElementById('submitBtn');
         const soonMessage = document.getElementById('soonMessage');
@@ -842,17 +850,16 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                // Собираем данные
                 const formData = new FormData(form);
+
+                // Чекбоксы напитков: Web3Forms получит несколько значений с именем "drinks".
+                // Чтобы в письме они выглядели аккуратно, склеим их в одну строку.
                 const drinks = Array.from(form.querySelectorAll('input[name="drinks"]:checked'))
                     .map(cb => cb.value);
-
-                const payload = {
-                    fullname: (formData.get('fullname') || '').trim(),
-                    attendance: formData.get('attendance') || '',
-                    companions: (formData.get('companions') || '').trim(),
-                    drinks: drinks,
-                    message: (formData.get('message') || '').trim(),
-                };
+                // Удаляем отдельные значения drinks из FormData и добавляем одну строку
+                formData.delete('drinks');
+                formData.append('drinks', drinks.length ? drinks.join(', ') : 'Не выбрано');
 
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Отправляем...';
@@ -860,19 +867,22 @@
                 soonMessage.style.display = 'none';
 
                 try {
-                    const response = await fetch('/api/submit', {
+                    const response = await fetch('https://api.web3forms.com/submit', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload),
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
 
-                    if (!response.ok) {
-                        const errData = await response.json().catch(() => ({}));
-                        throw new Error(errData.error || `Ошибка: ${response.status}`);
-                    }
+                    const result = await response.json();
 
-                    form.style.display = 'none';
-                    soonMessage.style.display = 'block';
+                    if (result.success) {
+                        form.style.display = 'none';
+                        soonMessage.style.display = 'block';
+                    } else {
+                        throw new Error(result.message || 'Ошибка отправки');
+                    }
                 } catch (err) {
                     console.error('Ошибка отправки:', err);
                     errorMessage.textContent = err.message || 'Не удалось отправить форму. Попробуйте позже.';
