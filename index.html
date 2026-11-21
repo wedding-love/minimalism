@@ -647,7 +647,7 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip: простая тема + почта вам) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip: исправленная версия) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
@@ -658,16 +658,14 @@
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers" class="pageclip-form" method="post" id="presenceForm">
             
             <!-- Настройки для Email-уведомления -->
-            <!-- 1. Простая тема без имени гостя -->
+            <!-- Тема письма, которая придет вам на почту -->
             <input type="hidden" name="_subject" value="Новая анкета со свадьбы!">
             
-            <!-- 2. Принудительная отправка копии на вашу почту -->
-            <input type="hidden" name="_to" value="alina.buyanovskayaa@gmail.com">
+            <!-- _to убран, так как адрес должен быть настроен в личном кабинете Pageclip -->
 
             <!-- 1. ИМЯ (Идет первым) -->
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
-                <!-- Используем русское имя для красивой колонки в таблице -->
                 <input type="text" id="fullname" name="Гость" required placeholder="Петрова Анна">
             </div>
 
