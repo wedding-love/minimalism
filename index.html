@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -648,7 +647,7 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip с русскими колонками) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip: простая тема + почта вам) -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
@@ -659,9 +658,13 @@
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers" class="pageclip-form" method="post" id="presenceForm">
             
             <!-- Настройки для Email-уведомления -->
-            <input type="hidden" name="_subject" value="Новая анкета от {{ fullname }}">
+            <!-- 1. Простая тема без имени гостя -->
+            <input type="hidden" name="_subject" value="Новая анкета со свадьбы!">
+            
+            <!-- 2. Принудительная отправка копии на вашу почту -->
+            <input type="hidden" name="_to" value="alina.buyanovskayaa@gmail.com">
 
-            <!-- 1. ИМЯ (Идет первым, поэтому в таблице и письме будет первой колонкой) -->
+            <!-- 1. ИМЯ (Идет первым) -->
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <!-- Используем русское имя для красивой колонки в таблице -->
@@ -672,7 +675,6 @@
             <div class="form-group">
                 <label>Сможете ли вы присутствовать? *</label>
                 <div class="radio-group">
-                    <!-- Используем русское имя для колонки -->
                     <label><input type="radio" name="Присутствие" value="Да, приду" required> Да, приду</label>
                     <label><input type="radio" name="Присутствие" value="Нет, не смогу"> Нет, не смогу</label>
                     <label><input type="radio" name="Присутствие" value="Возможно, сообщу позже"> Возможно, сообщу позже</label>
@@ -689,7 +691,6 @@
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
                 <div class="checkbox-group">
-                    <!-- Все чекбоксы имеют одно имя "Напитки", чтобы попасть в одну ячейку таблицы -->
                     <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
                     <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
                     <label><input type="checkbox" name="Напитки" value="Красное вино"> Красное вино</label>
@@ -871,4 +872,3 @@
 </script>
 </body>
 </html>
-
