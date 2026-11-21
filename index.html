@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -885,7 +884,7 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
         
-        <form id="presenceForm" action="https://forminit.com/f/ief6m9scgqq" method="POST" enctype="multipart/form-data">
+        <form id="presenceForm">
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <input type="text" id="fullname" name="fi-sender-fullName" required placeholder="Петрова Анна">
@@ -963,8 +962,8 @@
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
 
-<!-- SDK Forminit -->
-<script src="https://forminit.com/sdk.js" defer></script>
+<!-- ✅ Подключаем SDK Forminit по правильному пути -->
+<script src="https://forminit.com/sdk/v1/forminit.js"></script>
 
 <script>
     (function() {
@@ -1085,35 +1084,43 @@
             });
         }
 
-        // ✅ Короткая и простая отправка формы через Forminit
+        // ✅ Правильная инициализация и отправка через Forminit SDK
         const form = document.getElementById('presenceForm');
         const soonMessage = document.getElementById('soonMessage');
-        
-        if (form && window.Forminit) {
-            soonMessage.style.display = 'none';
-            
+
+        if (form && typeof Forminit !== 'undefined') {
+            const forminit = new Forminit(); // Создаём экземпляр SDK
+
             form.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Отменяем перезагрузку страницы
-                
-                // Меняем кнопку, чтобы не нажимали дважды
+                e.preventDefault(); // Отменяем стандартный переход
+
                 const btn = form.querySelector('.submit-btn');
                 btn.textContent = 'Отправляем...';
                 btn.disabled = true;
 
-                // Отправляем данные в Forminit
-                const { error } = await window.Forminit.submit('ief6m9scgqq', new FormData(form));
+                try {
+                    // Вызываем submit у экземпляра forminit
+                    const { error } = await forminit.submit('ief6m9scgqq', new FormData(form));
 
-                if (!error) {
-                    // Если ошибки нет — показываем спасибо
-                    form.style.display = 'none';
-                    soonMessage.style.display = 'block';
-                } else {
-                    // Если ошибка — просто возвращаем кнопку обратно
-                    alert('Ошибка при отправке. Попробуйте еще раз.');
+                    if (!error) {
+                        form.style.display = 'none';
+                        soonMessage.style.display = 'block';
+                    } else {
+                        alert('Ошибка при отправке. Попробуйте еще раз.');
+                        btn.textContent = 'Отправить';
+                        btn.disabled = false;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Произошла непредвиденная ошибка. Попробуйте позже.');
                     btn.textContent = 'Отправить';
                     btn.disabled = false;
                 }
             });
+        } else if (!form) {
+            console.warn('Форма не найдена');
+        } else {
+            console.warn('Forminit SDK не загружен');
         }
     })();
 </script>
