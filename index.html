@@ -1,3 +1,15 @@
+Проблема в том, что библиотека Pageclip принудительно меняет стили страницы через JavaScript после отправки, игнорируя обычные CSS правила. Чтобы гарантированно убрать белый фон и надпись "Thank you", нужно использовать более жесткие методы: `!important` в CSS и дополнительную очистку через JavaScript сразу после события успеха.
+
+Вот полностью исправленный код. Я переписал логику обработки формы и добавил агрессивные стили.
+
+**Что изменено:**
+1.  **CSS:** Добавлены стили с `!important`, которые принудительно скрывают оверлей и сообщение Pageclip.
+2.  **JS:** В событие `pageclip:success` добавлена функция, которая физически удаляет элементы Pageclip из кода страницы (`element.remove()`), чтобы они точно не появились.
+3.  **Напитки:** Проверена структура чекбоксов (они должны иметь одинаковое имя `name="Напитки"`).
+
+Скопируйте этот код целиком:
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -507,28 +519,34 @@
         }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- ИСПРАВЛЕНИЯ ДЛЯ PAGECLIP --- */
+        /* --- АГРЕССИВНЫЕ ИСПРАВЛЕНИЯ ДЛЯ PAGECLIP --- */
         
-        /* Скрываем стандартное сообщение "Thank you" от Pageclip */
-        .pageclip-thankyou {
+        /* Принудительно скрываем Thank You */
+        .pageclip-thankyou, 
+        div[data-pageclip-target="thankyou"] {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             height: 0 !important;
             width: 0 !important;
-            overflow: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
         }
 
-        /* Убираем белый фон/оверлей, если он появляется при отправке */
-        .pageclip-overlay {
+        /* Принудительно убираем белый фон/оверлей */
+        .pageclip-overlay,
+        div[class*="overlay"] {
             background: transparent !important;
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
+            z-index: -9999 !important;
         }
-        
-        /* Дополнительно скрываем любые другие элементы pageclip, которые могут мешать */
-        div[id^="pageclip-"] {
+
+        /* Скрываем любые спиннеры загрузки */
+        .pageclip-spinner {
             display: none !important;
         }
     </style>
@@ -672,7 +690,7 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ (Pageclip: исправленная версия) -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
@@ -682,13 +700,9 @@
         <!-- Pageclip Form -->
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers" class="pageclip-form" method="post" id="presenceForm">
             
-            <!-- Настройки для Email-уведомления -->
-            <!-- Тема письма, которая придет вам на почту -->
             <input type="hidden" name="_subject" value="Новая анкета со свадьбы!">
-            
-            <!-- _to убран, так как адрес должен быть настроен в личном кабинете Pageclip -->
 
-            <!-- 1. ИМЯ (Идет первым) -->
+            <!-- 1. ИМЯ -->
             <div class="form-group">
                 <label for="fullname">Фамилия и имя *</label>
                 <input type="text" id="fullname" name="Гость" required placeholder="Петрова Анна">
@@ -710,10 +724,10 @@
                 <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
-            <!-- 4. НАПИТКИ (ИСПРАВЛЕНО: добавлено скрытое поле для сбора всех значений) -->
+            <!-- 4. НАПИТКИ (ИСПРАВЛЕНО) -->
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
-                <!-- Это поле гарантирует, что все выбранные чекбоксы отправятся как один список -->
+                <!-- Скрытое поле для сбора всех значений -->
                 <input type="hidden" name="Напитки" value="">
                 <div class="checkbox-group">
                     <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
@@ -881,20 +895,24 @@
             nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
         }
 
-        // ===== Обработка успеха отправки Pageclip =====
+        // ===== Обработка формы (ИСПРАВЛЕНО) =====
         const form = document.getElementById('presenceForm');
         if (form) {
             form.addEventListener('pageclip:success', function() {
-                // Скрываем форму
+                // 1. Скрываем форму
                 form.style.display = 'none';
-                // Показываем наше сообщение
+                
+                // 2. Показываем наше сообщение
                 document.getElementById('soonMessage').style.display = 'block';
                 
-                // Дополнительная очистка любых остатков pageclip
+                // 3. АГРЕССИВНАЯ ОЧИСТКА: Удаляем элементы Pageclip из DOM
                 setTimeout(() => {
-                    const overlays = document.querySelectorAll('.pageclip-overlay, .pageclip-thankyou');
+                    const overlays = document.querySelectorAll('.pageclip-overlay, .pageclip-thankyou, [data-pageclip-target]');
                     overlays.forEach(el => el.remove());
-                }, 100);
+                    
+                    // Также убираем стиль overflow:hidden у body, если Pageclip его поставил
+                    document.body.style.overflow = '';
+                }, 50);
             });
             
             form.addEventListener('pageclip:error', function() {
@@ -905,3 +923,4 @@
 </script>
 </body>
 </html>
+```
