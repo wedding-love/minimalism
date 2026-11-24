@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Дмитрий & Екатерина | Свадебное приглашение</title>
 
-    <!-- ✅ Официальный скрипт Pageclip (нужен для обхода CORS) -->
-    <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +24,6 @@
 
         section { width: 100%; }
 
-        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -96,7 +94,6 @@
         }
         .bounce-animation { animation: bounceSoft 2s infinite ease-in-out; }
 
-        /* Общие */
         .small-divider {
             width: 60px; height: 1px;
             background: #cccccc;
@@ -114,7 +111,6 @@
         .small-divider::before { left: -10px; }
         .small-divider::after { right: -10px; }
 
-        /* Гости */
         .guests-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .guest-content { max-width: 900px; margin: 0 auto; text-align: center; }
         .greeting-title {
@@ -170,7 +166,6 @@
             .calendar-day { font-size: 0.75rem; }
         }
 
-        /* Счётчик */
         .countdown-wrapper { margin-top: 2rem; text-align: center; }
         .countdown-title {
             font-size: 1rem;
@@ -200,7 +195,6 @@
             letter-spacing: 1px;
         }
 
-        /* Локация */
         .location-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .location-container { max-width: 900px; margin: 0 auto; text-align: center; }
         .location-card {
@@ -248,7 +242,6 @@
         }
         .map-container { margin-top: 1.5rem; border-radius: 20px; overflow: hidden; }
 
-        /* Тайминг */
         .timeline-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .timeline-title {
             text-align: center;
@@ -276,7 +269,6 @@
             .timeline-event { text-align: left; }
         }
 
-        /* Фотогалерея */
         .gallery-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .gallery-container { max-width: 800px; margin: 0 auto; text-align: center; }
         .gallery-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
@@ -326,7 +318,6 @@
         }
         .dot.active { background: #111111; transform: scale(1.2); }
 
-        /* Дресс-код */
         .dresscode-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .dresscode-container { max-width: 1000px; margin: 0 auto; text-align: center; }
         .dresscode-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
@@ -349,13 +340,11 @@
         .peach { background: #ffdab9; }
         .lavender-light { background: #e0d0ff; }
 
-        /* Пожелания */
         .wishes-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .wishes-content { max-width: 800px; margin: 0 auto; text-align: center; }
         .wishes-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
         .wishes-text { font-size: 1.1rem; line-height: 1.7; margin-top: 1.5rem; }
 
-        /* Как добраться */
         .transport-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .transport-container { max-width: 800px; margin: 0 auto; text-align: center; }
         .transport-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
@@ -366,14 +355,13 @@
         }
         .transport-text p { margin-bottom: 0.8rem; }
 
-        /* Форма присутствия */
         .presence-block { background: #ffffff; padding: 4rem 1.5rem; border-bottom: 1px solid #eeeeee; }
         .presence-container { max-width: 800px; margin: 0 auto; text-align: center; }
         .presence-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 500; margin-bottom: 1rem; }
         .presence-sub { font-size: 1rem; margin-bottom: 1.5rem; }
 
         .form-group { text-align: left; margin-bottom: 1.8rem; }
-        .form-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 1rem; }
+        .form-group > label { display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 1rem; }
         .form-group input[type="text"],
         .form-group input[type="tel"],
         .form-group textarea,
@@ -411,12 +399,24 @@
         }
         .submit-btn:hover { background: #333; }
         .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .soon-message {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            font-weight: 500;
-            display: none;
+
+        .custom-success-message {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
         }
+        .custom-success-message h2 {
+            font-weight: 500;
+            font-size: 1.8rem;
+            margin: 0 0 1rem;
+            color: #111;
+        }
+        .custom-success-message p {
+            font-size: 1.05rem;
+            color: #111;
+            margin: 0;
+        }
+
         .error-message {
             margin-top: 1rem;
             color: #c0392b;
@@ -424,7 +424,6 @@
             display: none;
         }
 
-        /* Контакты */
         .contacts-block {
             background: #ffffff;
             padding: clamp(3rem, 8vw, 5rem) 1.5rem;
@@ -654,12 +653,13 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
+        <!--
+          Важно: НЕТ класса "pageclip-form" — мы инициализируем форму вручную в скрипте,
+          чтобы передать successTemplate. Нативный submit оставлен как fallback.
+        -->
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers"
-              class="pageclip-form"
               method="post"
               id="presenceForm">
-
-            <input type="hidden" name="_subject" value="Новая анкета со свадьбы!">
 
             <!-- 1. ИМЯ -->
             <div class="form-group">
@@ -683,16 +683,16 @@
                 <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
-            <!-- 4. НАПИТКИ — уникальное имя у каждого чекбокса -->
+            <!-- 4. НАПИТКИ — группируем через квадратные скобки, каждое имя уникально -->
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="Напиток_Шампанское" value="Да"> Шампанское</label>
-                    <label><input type="checkbox" name="Напиток_Белое_вино" value="Да"> Белое вино</label>
-                    <label><input type="checkbox" name="Напиток_Красное_вино" value="Да"> Красное вино</label>
-                    <label><input type="checkbox" name="Напиток_Водка" value="Да"> Водка</label>
-                    <label><input type="checkbox" name="Напиток_Виски" value="Да"> Виски</label>
-                    <label><input type="checkbox" name="Напиток_Безалкогольные" value="Да"> Безалкогольные напитки</label>
+                    <label><input type="checkbox" name="Напитки[Шампанское]" value="Да"> Шампанское</label>
+                    <label><input type="checkbox" name="Напитки[Белое вино]" value="Да"> Белое вино</label>
+                    <label><input type="checkbox" name="Напитки[Красное вино]" value="Да"> Красное вино</label>
+                    <label><input type="checkbox" name="Напитки[Водка]" value="Да"> Водка</label>
+                    <label><input type="checkbox" name="Напитки[Виски]" value="Да"> Виски</label>
+                    <label><input type="checkbox" name="Напитки[Безалкогольные]" value="Да"> Безалкогольные напитки</label>
                 </div>
                 <p style="font-size: 0.85rem; color: #777; margin-top: 0.4rem;">Можно выбрать несколько вариантов</p>
             </div>
@@ -703,14 +703,12 @@
                 <textarea id="message" name="Пожелания" rows="2" placeholder="Напишите, если важно"></textarea>
             </div>
 
-            <button type="submit" class="submit-btn pageclip-form__submit" id="submitBtn">
+            <button type="submit" class="submit-btn" id="submitBtn">
                 <span>Отправить</span>
             </button>
         </form>
 
-        <!-- Резервное сообщение, если Pageclip не заменит форму сам -->
-        <div class="soon-message" id="soonMessage">Спасибо! Ваш ответ принят. Мы вас ждём!</div>
-        <div class="error-message" id="errorMessage">Произошла ошибка при отправке. Попробуйте ещё раз.</div>
+        <div class="error-message" id="errorMessage">Не удалось отправить. Попробуйте ещё раз или напишите нам в Telegram.</div>
     </div>
 </section>
 
@@ -747,6 +745,9 @@
 <footer>
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
+
+<!-- Скрипт Pageclip -->
+<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 
 <script>
     (function() {
@@ -851,47 +852,75 @@
             nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
         }
 
-        // ===== Кастомизация Thank You от Pageclip =====
-        const form = document.getElementById('presenceForm');
+        // ===== Инициализация Pageclip с кастомным Thank You =====
+        function initPageclipForm() {
+            const form = document.getElementById('presenceForm');
+            if (!form) return;
 
-        if (form) {
-            // ✅ Официальный способ: атрибут data-pageclip-thankyou.
-            // Pageclip заменит форму на этот HTML после успешной отправки.
-            const thankYouHTML =
-                '<div style="text-align:center; padding:2rem 1rem;">' +
-                    '<h2 style="font-family:\'Cormorant Garamond\', Georgia, serif; font-weight:500; font-size:1.8rem; margin:0 0 1rem; color:#111;">Спасибо!</h2>' +
-                    '<p style="font-family:\'Cormorant Garamond\', Georgia, serif; font-size:1.05rem; color:#111; margin:0;">Ваш ответ принят. Мы вас ждём!</p>' +
+            // Проверка: библиотека загрузилась?
+            if (typeof Pageclip === 'undefined') {
+                console.error('[Pageclip] Библиотека не загружена. Проверьте блокировку скрипта (adblock) или соединение.');
+                return;
+            }
+
+            if (typeof Pageclip.form !== 'function') {
+                console.error('[Pageclip] Метод Pageclip.form недоступен. Библиотека загрузилась некорректно.');
+                return;
+            }
+
+            const successHTML =
+                '<div class="custom-success-message">' +
+                    '<h2>Спасибо!</h2>' +
+                    '<p>Ваш ответ принят. Мы вас ждём!</p>' +
                 '</div>';
 
-            form.setAttribute('data-pageclip-thankyou', thankYouHTML);
-
-            // Страховка: если Pageclip по какой-то причине не заменил форму —
-            // скрываем её сами и показываем наше сообщение
-            form.addEventListener('pageclip:success', function () {
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-
-                // Убираем возможные остатки оверлеев Pageclip
-                document.querySelectorAll(
-                    '.pageclip-thankyou, .pageclip-overlay, .pageclip-form__success, [data-pageclip-target]'
-                ).forEach(el => el.remove());
-
-                setTimeout(() => {
-                    if (form.offsetParent !== null) {
-                        form.style.display = 'none';
-                        const soonMessage = document.getElementById('soonMessage');
-                        if (soonMessage) {
-                            soonMessage.style.display = 'block';
-                            soonMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            try {
+                Pageclip.form(form, {
+                    successTemplate: successHTML,
+                    onSubmit: function () {
+                        console.log('[Pageclip] Отправка формы...');
+                        const btn = document.getElementById('submitBtn');
+                        if (btn) {
+                            btn.disabled = true;
+                            const span = btn.querySelector('span');
+                            if (span) span.textContent = 'Отправка...';
+                        }
+                    },
+                    onResponse: function (error, response) {
+                        if (error) {
+                            console.error('[Pageclip] Ошибка ответа:', error);
+                            const errEl = document.getElementById('errorMessage');
+                            if (errEl) errEl.style.display = 'block';
+                            const btn = document.getElementById('submitBtn');
+                            if (btn) {
+                                btn.disabled = false;
+                                const span = btn.querySelector('span');
+                                if (span) span.textContent = 'Отправить';
+                            }
+                        } else {
+                            console.log('[Pageclip] Успех:', response);
+                            // Если по какой-то причине successTemplate не применился —
+                            // подменяем содержимое формы вручную
+                            setTimeout(function () {
+                                if (form.offsetParent !== null) {
+                                    form.innerHTML = successHTML;
+                                }
+                            }, 500);
                         }
                     }
-                }, 300);
-            });
+                });
+                console.log('[Pageclip] Форма инициализирована');
+            } catch (err) {
+                console.error('[Pageclip] Ошибка инициализации:', err);
+            }
+        }
 
-            form.addEventListener('pageclip:error', function () {
-                const errorMessage = document.getElementById('errorMessage');
-                if (errorMessage) errorMessage.style.display = 'block';
-            });
+        // Запуск после загрузки DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPageclipForm);
+        } else {
+            // DOM уже загружен
+            initPageclipForm();
         }
     })();
 </script>
