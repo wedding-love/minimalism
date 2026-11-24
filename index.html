@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Дмитрий & Екатерина | Свадебное приглашение</title>
-    
-    <!-- Подключение стилей Pageclip -->
-    <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -506,25 +503,6 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-        /* --- АГРЕССИВНЫЕ ИСПРАВЛЕНИЯ ДЛЯ PAGECLIP --- */
-        
-        /* Принудительно скрываем Thank You и оверлей */
-        .pageclip-thankyou, 
-        div[data-pageclip-target="thankyou"],
-        .pageclip-overlay,
-        div[class*="overlay"] {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            height: 0 !important;
-            width: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            background: transparent !important;
-            z-index: -9999 !important;
-        }
     </style>
 </head>
 <body>
@@ -673,9 +651,9 @@
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
-        <!-- Pageclip Form -->
-        <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers" class="pageclip-form" method="post" id="presenceForm">
-            
+        <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers"
+              method="post" id="presenceForm">
+
             <input type="hidden" name="_subject" value="Новая анкета со свадьбы!">
 
             <!-- 1. ИМЯ -->
@@ -700,18 +678,18 @@
                 <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
-            <!-- 4. НАПИТКИ (ИСПРАВЛЕНО) -->
+            <!-- 4. НАПИТКИ — ИСПРАВЛЕНО -->
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
-                <!-- Скрытое поле для сбора всех значений -->
-                <input type="hidden" name="Напитки" value="">
+                <!-- ОДИН hidden-инпут, куда JS запишет все выбранные через запятую -->
+                <input type="hidden" name="Напитки" id="drinksHidden" value="">
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
-                    <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
-                    <label><input type="checkbox" name="Напитки" value="Красное вино"> Красное вино</label>
-                    <label><input type="checkbox" name="Напитки" value="Водка"> Водка</label>
-                    <label><input type="checkbox" name="Напитки" value="Виски"> Виски</label>
-                    <label><input type="checkbox" name="Напитки" value="Безалкогольные"> Безалкогольные напитки</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Шампанское"> Шампанское</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Белое вино"> Белое вино</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Красное вино"> Красное вино</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Водка"> Водка</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Виски"> Виски</label>
+                    <label><input type="checkbox" class="drink-checkbox" value="Безалкогольные"> Безалкогольные напитки</label>
                 </div>
             </div>
 
@@ -721,12 +699,12 @@
                 <textarea id="message" name="Пожелания" rows="2" placeholder="Напишите, если важно"></textarea>
             </div>
 
-            <button type="submit" class="submit-btn pageclip-form__submit" id="submitBtn">
+            <button type="submit" class="submit-btn" id="submitBtn">
                 <span>Отправить</span>
             </button>
         </form>
 
-        <div class="soon-message" id="soonMessage">Спасибо! Мы получили ваши ответы. До скорой встречи!</div>
+        <div class="soon-message" id="soonMessage">Спасибо! Ваш ответ принят. Мы вас ждём!</div>
         <div class="error-message" id="errorMessage">Произошла ошибка при отправке. Попробуйте ещё раз.</div>
     </div>
 </section>
@@ -764,9 +742,6 @@
 <footer>
     С НЕТЕРПЕНИЕМ ЖДЁМ ВАС НА НАШЕМ ПРАЗДНИКЕ
 </footer>
-
-<!-- Скрипт Pageclip -->
-<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 
 <script>
     (function() {
@@ -871,32 +846,50 @@
             nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
         }
 
-        // ===== Обработка формы (ИСПРАВЛЕНО) =====
+        // ===== Обработка формы — ручная отправка через fetch =====
         const form = document.getElementById('presenceForm');
         if (form) {
-            form.addEventListener('pageclip:success', function() {
-                // 1. Скрываем форму
-                form.style.display = 'none';
-                
-                // 2. Показываем наше сообщение
-                document.getElementById('soonMessage').style.display = 'block';
-                
-                // 3. АГРЕССИВНАЯ ОЧИСТКА: Удаляем элементы Pageclip из DOM
-                setTimeout(() => {
-                    const overlays = document.querySelectorAll('.pageclip-overlay, .pageclip-thankyou, [data-pageclip-target]');
-                    overlays.forEach(el => el.remove());
-                    
-                    // Также убираем стиль overflow:hidden у body, если Pageclip его поставил
-                    document.body.style.overflow = '';
-                }, 50);
-            });
-            
-            form.addEventListener('pageclip:error', function() {
-                document.getElementById('errorMessage').style.display = 'block';
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // 1) Собираем ВСЕ отмеченные чекбоксы в одну строку через запятую
+                const checked = Array.from(document.querySelectorAll('.drink-checkbox:checked'))
+                                     .map(cb => cb.value);
+                document.getElementById('drinksHidden').value = checked.join(', ');
+
+                // 2) Готовим UI
+                const submitBtn    = document.getElementById('submitBtn');
+                const soonMessage  = document.getElementById('soonMessage');
+                const errorMessage = document.getElementById('errorMessage');
+
+                submitBtn.disabled = true;
+                submitBtn.querySelector('span').textContent = 'Отправка...';
+                errorMessage.style.display = 'none';
+
+                // 3) Отправляем на Pageclip напрямую — без их JS и без оверлея
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+
+                    // 4) Показываем наш собственный текст «спасибо»
+                    form.style.display = 'none';
+                    soonMessage.style.display = 'block';
+                    soonMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } catch (err) {
+                    console.error(err);
+                    errorMessage.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('span').textContent = 'Отправить';
+                }
             });
         }
     })();
 </script>
 </body>
 </html>
-
