@@ -506,6 +506,24 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- ИСПРАВЛЕНИЯ ДЛЯ PAGECLIP --- */
+        
+        /* Скрываем стандартное сообщение "Thank you" от Pageclip */
+        .pageclip-thankyou {
+            display: none !important;
+        }
+
+        /* Убираем белый фон/оверлей, если он появляется при отправке */
+        .pageclip-overlay {
+            background: transparent !important;
+            display: none !important;
+        }
+        
+        /* Гарантируем, что наше кастомное сообщение видно */
+        #soonMessage {
+            display: none; /* Контролируется JS */
+        }
     </style>
 </head>
 <body>
