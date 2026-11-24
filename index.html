@@ -512,17 +512,24 @@
         /* Скрываем стандартное сообщение "Thank you" от Pageclip */
         .pageclip-thankyou {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+            overflow: hidden !important;
         }
 
         /* Убираем белый фон/оверлей, если он появляется при отправке */
         .pageclip-overlay {
             background: transparent !important;
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
         
-        /* Гарантируем, что наше кастомное сообщение видно */
-        #soonMessage {
-            display: none; /* Контролируется JS */
+        /* Дополнительно скрываем любые другие элементы pageclip, которые могут мешать */
+        div[id^="pageclip-"] {
+            display: none !important;
         }
     </style>
 </head>
@@ -703,9 +710,11 @@
                 <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
-            <!-- 4. НАПИТКИ -->
+            <!-- 4. НАПИТКИ (ИСПРАВЛЕНО: добавлено скрытое поле для сбора всех значений) -->
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
+                <!-- Это поле гарантирует, что все выбранные чекбоксы отправятся как один список -->
+                <input type="hidden" name="Напитки" value="">
                 <div class="checkbox-group">
                     <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
                     <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
@@ -876,8 +885,16 @@
         const form = document.getElementById('presenceForm');
         if (form) {
             form.addEventListener('pageclip:success', function() {
+                // Скрываем форму
                 form.style.display = 'none';
+                // Показываем наше сообщение
                 document.getElementById('soonMessage').style.display = 'block';
+                
+                // Дополнительная очистка любых остатков pageclip
+                setTimeout(() => {
+                    const overlays = document.querySelectorAll('.pageclip-overlay, .pageclip-thankyou');
+                    overlays.forEach(el => el.remove());
+                }, 100);
             });
             
             form.addEventListener('pageclip:error', function() {
