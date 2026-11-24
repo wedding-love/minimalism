@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Дмитрий & Екатерина | Свадебное приглашение</title>
 
-    <!-- ✅ Возвращаем скрипт Pageclip (без него будет CORS-ошибка) -->
+    <!-- ✅ Официальный скрипт Pageclip (нужен для обхода CORS) -->
     <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -647,14 +647,13 @@
     </div>
 </section>
 
-<!-- ✅ ФОРМА ПРИСУТСТВИЯ — исправлена -->
+<!-- ✅ ФОРМА ПРИСУТСТВИЯ -->
 <section class="presence-block fade-up" id="presence-section">
     <div class="presence-container">
         <h2 class="presence-title">ПРИСУТСТВИЕ</h2>
         <div class="small-divider"></div>
         <p class="presence-sub">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества.</p>
 
-        <!-- Возвращаем класс pageclip-form, чтобы официальный скрипт обрабатывал отправку -->
         <form action="https://send.pageclip.co/mtvLcDTwcI0zEpu1LxzuJiO1c98EkEmM/Answers"
               class="pageclip-form"
               method="post"
@@ -684,7 +683,7 @@
                 <input type="text" id="companions" name="Компания" placeholder="Например: Сергей, Ольга">
             </div>
 
-            <!-- 4. НАПИТКИ — каждому чекбоксу даём УНИКАЛЬНОЕ имя -->
+            <!-- 4. НАПИТКИ — уникальное имя у каждого чекбокса -->
             <div class="form-group">
                 <label>Предпочтения по напиткам</label>
                 <div class="checkbox-group">
@@ -709,7 +708,7 @@
             </button>
         </form>
 
-        <!-- Наш собственный текст вместо встроенного Thank You -->
+        <!-- Резервное сообщение, если Pageclip не заменит форму сам -->
         <div class="soon-message" id="soonMessage">Спасибо! Ваш ответ принят. Мы вас ждём!</div>
         <div class="error-message" id="errorMessage">Произошла ошибка при отправке. Попробуйте ещё раз.</div>
     </div>
@@ -852,30 +851,46 @@
             nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slideCount; updateSlider(); });
         }
 
-        // ===== Перехват успешной отправки Pageclip =====
+        // ===== Кастомизация Thank You от Pageclip =====
         const form = document.getElementById('presenceForm');
-        const soonMessage = document.getElementById('soonMessage');
-        const errorMessage = document.getElementById('errorMessage');
 
         if (form) {
-            // Pageclip генерирует событие pageclip:success на форме
-            form.addEventListener('pageclip:success', function () {
-                // Скрываем форму
-                form.style.display = 'none';
-                // Показываем наш текст «спасибо»
-                soonMessage.style.display = 'block';
-                soonMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // ✅ Официальный способ: атрибут data-pageclip-thankyou.
+            // Pageclip заменит форму на этот HTML после успешной отправки.
+            const thankYouHTML =
+                '<div style="text-align:center; padding:2rem 1rem;">' +
+                    '<h2 style="font-family:\'Cormorant Garamond\', Georgia, serif; font-weight:500; font-size:1.8rem; margin:0 0 1rem; color:#111;">Спасибо!</h2>' +
+                    '<p style="font-family:\'Cormorant Garamond\', Georgia, serif; font-size:1.05rem; color:#111; margin:0;">Ваш ответ принят. Мы вас ждём!</p>' +
+                '</div>';
 
-                // Агрессивно удаляем встроенный оверлей Pageclip, если он успел появиться
+            form.setAttribute('data-pageclip-thankyou', thankYouHTML);
+
+            // Страховка: если Pageclip по какой-то причине не заменил форму —
+            // скрываем её сами и показываем наше сообщение
+            form.addEventListener('pageclip:success', function () {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+
+                // Убираем возможные остатки оверлеев Pageclip
+                document.querySelectorAll(
+                    '.pageclip-thankyou, .pageclip-overlay, .pageclip-form__success, [data-pageclip-target]'
+                ).forEach(el => el.remove());
+
                 setTimeout(() => {
-                    document.querySelectorAll('.pageclip-thankyou, .pageclip-overlay, [data-pageclip-target]')
-                        .forEach(el => el.remove());
-                    document.body.style.overflow = '';
-                }, 50);
+                    if (form.offsetParent !== null) {
+                        form.style.display = 'none';
+                        const soonMessage = document.getElementById('soonMessage');
+                        if (soonMessage) {
+                            soonMessage.style.display = 'block';
+                            soonMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                }, 300);
             });
 
             form.addEventListener('pageclip:error', function () {
-                errorMessage.style.display = 'block';
+                const errorMessage = document.getElementById('errorMessage');
+                if (errorMessage) errorMessage.style.display = 'block';
             });
         }
     })();
